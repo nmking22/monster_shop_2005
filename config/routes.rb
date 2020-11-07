@@ -62,6 +62,9 @@ Rails.application.routes.draw do
     resources :items
     resources :item_orders, only: [:update]
     resources :orders, only: [:show]
+    resources :discounts
+    patch '/discounts/:id/edit', to: 'discounts#edit'
+    delete '/discounts/:id/delete', to: 'discounts#destroy'
   end
 
 

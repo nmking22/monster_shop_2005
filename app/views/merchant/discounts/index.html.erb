@@ -1,0 +1,9 @@
+<h1>All Discounts for <%= current_user.merchant.name %> </h1>
+<ol>
+  <% @discounts.each do |discount| %>
+  <li id='discount-<%=discount.id%>'><p>Name of Discount: <%=link_to discount.name, "/merchant/discounts/#{discount.id}"%></p>
+      <p>Discount min quantity: <%= discount.min_quantity %> </p>
+      <p>Discount percent off: <%= discount.discount_percent %>% </p>
+  </li>
+  <% end %>
+</ol>

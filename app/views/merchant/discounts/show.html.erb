@@ -1,0 +1,6 @@
+<%= link_to "All Discounts", "/merchant/discounts" %>
+<h2> <%= @discount.name %> </h2>
+<p>Discount min quantity: <%= @discount.min_quantity %> </p>
+<p>Discount percent off: <%= @discount.discount_percent %>% </p><br>
+<%= button_to "Delete Discount", "/merchant/discounts/#{@discount.id}/delete", method: :delete %>
+<%= button_to "Edit Discount", "/merchant/discounts/#{@discount.id}/edit", method: :patch %>
