@@ -1,4 +1,5 @@
 class Discount < ApplicationRecord
-  has_many :discount_items
-  has_many :items, through: :discount_items
+  validates_presence_of :name, :min_quantity, :discount_percent
+
+  belongs_to :merchant
 end
