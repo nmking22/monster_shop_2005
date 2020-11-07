@@ -1,0 +1,16 @@
+<h2> New Discount for: <%= "#{current_user.merchant.name}" %> </h2>
+<%= form_tag "/merchant/discounts", method: :post do %>
+
+<%= hidden_field_tag :merchant_id, current_user.merchant.id %>
+
+<%= label_tag :name %>
+<%= text_field_tag :name %>
+
+<%= label_tag :min_quantity %>
+<%= number_field_tag :min_quantity %>
+
+<%= label_tag :discount_percent %>
+<%= number_field_tag :discount_percent %>
+
+<%= submit_tag 'Create New Discount' %>
+<% end %>
