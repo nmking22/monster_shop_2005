@@ -10,12 +10,13 @@ RSpec.describe 'Merchant Discount' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@dave)
     end
 
-    it 'can delete a discount' do
+    it 'can delete a discount and see flash message' do
       visit "/merchant/discounts/#{@discount_1.id}"
       click_button "Delete Discount"
-      expect(page).to_not have_content(@discount_1.name)
+      save_and_open_page
       expect(page).to_not have_content(@discount_1.min_quantity)
       expect(page).to_not have_content(@discount_1.discount_percent)
+      expect(page).to have_content("#{@discount_1.name} has been deleted.")
     end
   end
 end

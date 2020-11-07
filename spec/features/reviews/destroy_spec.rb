@@ -32,7 +32,6 @@ RSpec.describe 'review edit and update', type: :feature do
       within "#review-#{review_1.id}" do
         click_on "Delete"
       end
-
       expect(current_path).to eq("/items/#{@chain.id}")
       expect(page).to_not have_css("#review-#{review_1_id}")
     end
