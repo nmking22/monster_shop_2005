@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_190022) do
+ActiveRecord::Schema.define(version: 2020_11_07_161433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "discount_items", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "discount_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discount_id"], name: "index_discount_items_on_discount_id"
+    t.index ["item_id"], name: "index_discount_items_on_item_id"
+  end
+
+  create_table "discounts", force: :cascade do |t|
+    t.integer "min_quantity", default: 0
+    t.integer "discount_percent", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "item_orders", force: :cascade do |t|
     t.bigint "order_id"
@@ -87,6 +103,8 @@ ActiveRecord::Schema.define(version: 2020_11_03_190022) do
     t.index ["merchant_id"], name: "index_users_on_merchant_id"
   end
 
+  add_foreign_key "discount_items", "discounts"
+  add_foreign_key "discount_items", "items"
   add_foreign_key "item_orders", "items"
   add_foreign_key "item_orders", "orders"
   add_foreign_key "items", "merchants"
