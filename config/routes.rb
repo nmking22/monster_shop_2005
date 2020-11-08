@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     resources :items
     resources :item_orders, only: [:update]
     resources :orders, only: [:show]
+    resources :bulk_discounts, only: [:index]
   end
 
 
