@@ -49,6 +49,7 @@ describe "As a merchant employee, when I visit '/merchant'" do
     expect(page).to have_content(@dog_bone.name)
     expect(page).to have_no_content(@tire.name)
   end
+
   it 'Can see pending orders with merchant items' do
     order_1 = @user.orders.create!(
         name: 'Ogirdor',
@@ -109,6 +110,11 @@ describe "As a merchant employee, when I visit '/merchant'" do
     # no content because order assigned to different merchant
     expect(page).not_to have_link("#{order_3.id}")
     expect(page).not_to have_content("#{order_3.total_quantity_of_items}")
+  end
 
+  it "I can see a link for bulk discounts" do
+    visit "/merchant"
+
+    expect(page).to have_link('Bulk Discounts')
   end
 end
