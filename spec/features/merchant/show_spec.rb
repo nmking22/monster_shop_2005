@@ -116,5 +116,7 @@ describe "As a merchant employee, when I visit '/merchant'" do
     visit "/merchant"
 
     expect(page).to have_link('Bulk Discounts')
+    click_on 'Bulk Discounts'
+    expect(current_path).to eq('/merchant/bulk_discounts')
   end
 end
