@@ -13,7 +13,7 @@ RSpec.describe 'Merchant Discount' do
     it 'can delete a discount and see flash message' do
       visit "/merchant/discounts/#{@discount_1.id}"
       click_button "Delete Discount"
-      save_and_open_page
+      
       expect(page).to_not have_content(@discount_1.min_quantity)
       expect(page).to_not have_content(@discount_1.discount_percent)
       expect(page).to have_content("#{@discount_1.name} has been deleted.")
