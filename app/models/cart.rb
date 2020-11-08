@@ -5,6 +5,10 @@ class Cart
     @contents = contents
   end
 
+  def decrement_item(item)
+    @contents[item.id.to_s] -= 1
+  end
+
   def add_item(item)
     @contents[item] = 0 if !@contents[item]
     @contents[item] += 1
@@ -22,6 +26,25 @@ class Cart
     item_quantity
   end
 
+
+
+
+    # def subtotal(item)
+    #   binding.pry
+    #   discounts = Discount.find_by(merchant_id: item.merchant_id)
+    #   if item.
+    #   if discount
+    #     discounts.order(discount_percent: :desc)
+    #   item.price * @contents[item.id.to_s]
+    # end
+
+  def discount_subtotal(item)
+    discounts = Discount.where(merchant_id: item.merchant_id)
+    best_discount_amount = discounts.where('min_quantity <= ?', @contents[item.id.to_s]).order('discount_percent DESC').first.discount_percent
+    price = (item.price * @contents[item.id.to_s]) * (best_discount_amount / 100.00)
+    price
+  end
+
   def subtotal(item)
     item.price * @contents[item.id.to_s]
   end
@@ -32,8 +55,5 @@ class Cart
     end
   end
 
-  def decrement_item(item)
-    @contents[item.id.to_s] -= 1
-  end
 
 end
