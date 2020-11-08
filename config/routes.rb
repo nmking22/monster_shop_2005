@@ -62,7 +62,6 @@ Rails.application.routes.draw do
     resources :items
     resources :item_orders, only: [:update]
     resources :orders, only: [:show]
+    resources :bulk_discounts, path: 'bulk_discounts', as: :bulk_discounts, except: :show
   end
-
-
 end
