@@ -12,6 +12,7 @@ RSpec.describe Cart do
         @ogre.id.to_s => 1,
         @giant.id.to_s => 2
         })
+      @discount = @megan.discounts.create!(name: 'Fall Discount', min_quantity: 2, discount_percent: 50)
     end
 
     it '.contents' do
@@ -52,5 +53,10 @@ RSpec.describe Cart do
       @cart.decrement_item(@giant)
       expect(@cart.total_items).to eq(2)
     end
+
+    it '.discount_subtotal' do
+      expect(@cart.discount_subtotal(@giant)).to eq(50)
+    end
+    
   end
 end
