@@ -43,6 +43,7 @@ RSpec.describe Cart do
       expect(@cart.total).to eq(120)
     end
 
+
     it '.subtotal()' do
       expect(@cart.subtotal(@ogre)).to eq(20)
        expect(@cart.subtotal(@giant)).to eq(100)
@@ -62,8 +63,11 @@ RSpec.describe Cart do
     it '.discount' do
       discount = @megan.discounts.create!(name: 'Fall Discount', min_quantity: 2, discount_percent: 50)
       expect(@cart.discount(@giant)).to eq([discount])
-
     end
 
+    it '.total' do
+      @megan.discounts.create!(name: 'Fall Discount', min_quantity: 2, discount_percent: 50)
+      expect(@cart.total).to eq(70)
+    end
   end
 end

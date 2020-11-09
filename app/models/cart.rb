@@ -30,11 +30,14 @@ class Cart
   def discount(item)
     discounts = Discount.where(merchant_id: item.merchant_id)
     @eligible_discounts = discounts.where('min_quantity <= ?', @contents[item.id.to_s])
-    @eligible_discounts
+  end
+
+  def best_discount
+    @eligible_discounts.order('discount_percent DESC').first
   end
 
   def discount_subtotal(item)
-    best_discount = @eligible_discounts.order('discount_percent DESC').first
+    best_discount
     price = (item.price * @contents[item.id.to_s]) - ((item.price * @contents[item.id.to_s]) * (best_discount.discount_percent / 100.00))
     price
   end
@@ -48,9 +51,12 @@ class Cart
   end
 
   def total
-    @contents.sum do |item_id,quantity|
-      Item.find(item_id).price * quantity
+    item_totals = []
+     @contents.each do |item_id,quantity|
+      item = Item.find(item_id)
+      item_totals << self.subtotal(item)
     end
+    item_totals.sum
   end
 
 
