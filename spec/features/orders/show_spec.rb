@@ -27,14 +27,6 @@ RSpec.describe("Order Show Page") do
 
       @item_order = ItemOrder.create!(item: @paper, order: @order_1, quantity: 2, price: (@paper.price * 2))
 
-      @order_2 = @user.orders.create!(
-        name: 'Ogirdor',
-        address: '1 2nd St.',
-        city: 'Bloomington',
-        state: 'IN',
-        zip: '24125'
-      )
-
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
@@ -61,6 +53,13 @@ RSpec.describe("Order Show Page") do
 
       expect(page).to have_content(@item_order.price)
       expect(page).to have_content(@item_order.quantity)
+    end
+
+    it 'can see discounted ammount on order show page' do
+      @mike.discounts.create!(name: 'Fall Discount', min_quantity: 2, discount_percent: 80)
+       visit "/profile/orders/#{@order_1.id}"
+       expect(@order_1.grandtotal).to eq(8)
+       expect(page).to have_content('Total: $8.00')
     end
   end
 end
