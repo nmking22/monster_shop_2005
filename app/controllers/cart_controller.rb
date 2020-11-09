@@ -23,8 +23,6 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
-  
-
   def increment
     item = Item.find(params[:item_id])
     if cart.items[item] < item.inventory
