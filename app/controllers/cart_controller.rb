@@ -1,7 +1,8 @@
 class CartController < ApplicationController
   def add_item
     item = Item.find(params[:item_id])
-    cart.add_item(item.id.to_s)
+    item_id = item.id
+    cart.add_item(item_id.to_s)
     flash[:success] = "#{item.name} was successfully added to your cart"
     redirect_to "/items"
   end
@@ -42,5 +43,4 @@ class CartController < ApplicationController
     end
     redirect_to '/cart'
   end
-
 end
