@@ -36,14 +36,14 @@ describe 'As a merchant user creating a new bulk discount' do
 
     @bulk_discount_1 = BulkDiscount.create!(
       description: "5% on 20+",
-      discount_percent: 0.05,
+      discount_percent: 5,
       minimum_quantity: 20,
       merchant: @dog_shop
     )
 
-    @bulk_discount_new = BulkDiscount.create!(
+    @bulk_discount_new = BulkDiscount.new(
       description: "15% on 50+",
-      discount_percent: 0.15,
+      discount_percent: 15,
       minimum_quantity: 50,
       merchant: @dog_shop
     )
@@ -54,17 +54,15 @@ describe 'As a merchant user creating a new bulk discount' do
 
     click_on 'Create a New Discount'
 
-    fill_in :description, with: @bulk_discount_new.description
-    fill_in :description, with: @bulk_discount_new.discount_percent
-    fill_in :description, with: @bulk_discount_new.minimum_quantity
+    fill_in :description, with: "15% on 50+"
+    fill_in :discount_percent, with: 15
+    fill_in :minimum_quantity, with: 50
 
     click_on 'Create Bulk Discount'
     expect(current_path).to eq('/merchant/bulk_discounts')
 
-    within "#discount-#{@bulk_discount_new.id}" do
-      expect(page).to have_content(@bulk_discount_new.description)
-      expect(page).to have_content(@bulk_discount_new.discount_percent)
-      expect(page).to have_content(@bulk_discount_new.minimum_quantity)
-    end
+    expect(page).to have_content("15% on 50+")
+    expect(page).to have_content("Percentage: 15%")
+    expect(page).to have_content("Minimum Quantity: 50")
   end
 end

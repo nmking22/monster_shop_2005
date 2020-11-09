@@ -51,14 +51,14 @@ describe 'As a merchant user editing an existing bulk discount' do
     end
 
     fill_in :description, with: "20% on 50+"
-    fill_in :discount_percent, with: 0.20
+    fill_in :discount_percent, with: 20
     fill_in :minimum_quantity, with: 50
     click_on "Update Bulk Discount"
     expect(current_path).to eq('/merchant/bulk_discounts')
 
     within "#discount-#{@bulk_discount_1.id}" do
       expect(page).to have_content("20% on 50+")
-      expect(page).to have_content(0.20)
+      expect(page).to have_content("Percentage: 20%")
       expect(page).to have_content(50)
     end
   end
