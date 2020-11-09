@@ -19,7 +19,7 @@
 ## Description
 "Monster Shop" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Users who work for a merchant can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will be able to get "shipped" by an admin. Each user role will have access to some or all CRUD functionality for application models.
 
-## Final Extenion done solo by yours truley:
+## Final Extenion done solo by [Brett Sherman](https://github.com/BJSherman80):
 FINAL EXAM 
 Bulk Discount
 General Goals
