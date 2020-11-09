@@ -4,11 +4,13 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
   end
 
   def new
+    @bulk_discount = BulkDiscount.new(discount_params)
   end
 
   def create
     @bulk_discount = BulkDiscount.new(discount_params)
-    @bulk_discount.save
+    @bulk_discount.merchant = current_user.merchant
+    @bulk_discount.save!
     redirect_to '/merchant/bulk_discounts'
   end
 
