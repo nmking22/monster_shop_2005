@@ -165,3 +165,19 @@ td, th {
 tr:nth-child(even) {
   background-color: #F0F8FF;
 }
+
+
+
+.background {
+    background-image: url(https://i.pinimg.com/originals/09/77/bc/0977bc66ef40ff2040e4c5026567e60f.jpg);
+  	// min-height: 100vh;
+  	min-height: 50rem;
+  	position: relative;
+  	overflow: hidden;
+  	display: flex;
+  	justify-content: center;
+  	align-content: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
