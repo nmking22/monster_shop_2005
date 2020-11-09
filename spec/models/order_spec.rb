@@ -39,6 +39,11 @@ describe Order, type: :model do
     end
 
     it '#grandtotal' do
+      @meg.discounts.create!(name: 'Fall Discount', min_quantity: 2, discount_percent: 50)
+      expect(@order_1.grandtotal).to eq(130)
+    end
+
+    it '#grandtotal' do
       expect(@order_1.grandtotal).to eq(230)
     end
 
@@ -54,7 +59,7 @@ describe Order, type: :model do
         quantity: 3,
         status: "fulfilled"
       )
-      
+
       expect(@pull_toy.inventory).to eq(32)
 
       expect(@order_1.status).to eq('pending')
