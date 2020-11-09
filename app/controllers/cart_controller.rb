@@ -23,10 +23,16 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
+  
+
   def increment
     item = Item.find(params[:item_id])
     if cart.items[item] < item.inventory
       cart.add_item(item.id.to_s)
+      if cart.discount(item) != []
+        discount = cart.discount(item).order('discount_percent DESC').first
+        flash[:success] = "#{discount.name} of #{discount.discount_percent}% off has been applied to #{item.name}!"
+      end
     else
       flash[:error] = "Cannot add item"
     end
@@ -37,6 +43,10 @@ class CartController < ApplicationController
     item = Item.find(params[:item_id])
     if cart.items[item] > 0
       cart.decrement_item(item)
+      if cart.discount(item) != []
+        discount = cart.discount(item).order('discount_percent DESC').first
+        flash[:success] = "#{discount.name} of #{discount.discount_percent}% off has been applied to #{item.name}!"
+      end
     else
       flash[:error] = "Cannot decrement item below 0"
     end
