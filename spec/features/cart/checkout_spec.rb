@@ -56,7 +56,6 @@ RSpec.describe 'Cart show' do
       visit "/cart"
 
       expect(page).to have_link("Checkout")
-
       click_on "Checkout"
 
       expect(current_path).to eq("/orders/new")
@@ -88,4 +87,51 @@ RSpec.describe 'Cart show' do
       expect(page).to_not have_link("Checkout")
     end
   end
+
+  describe 'when I add enough of an item' do
+      before(:each) do
+    @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
+    @user = User.create!(name: "Batman",
+                          address: "Some dark cave 11",
+                          city: "Arkham",
+                          state: "CO",
+                          zip: "81301",
+                          email: 'batmansemail@email.com',
+                          password: "password")
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    @mike.discounts.create!(name: 'Fall Discount', min_quantity: 2, discount_percent: 50)
+    end
+
+    it 'I see the discount flash message when increment item' do
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+      visit '/cart'
+      within("#cart-item-#{@paper.id}") do
+       click_on "+"
+      end
+      expect(page).to have_content("Fall Discount of 50% off has been applied to Lined Paper!")
+    end
+
+    it 'I see the discount flash message when increment item' do
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+      visit '/cart'
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+      visit '/cart'  
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+      visit '/cart'
+      #so there are now three paper but when we decrement the flash will be valid until 1 item is left.
+        within("#cart-item-#{@paper.id}") do
+         click_on "-"
+        end
+      expect(page).to have_content("Fall Discount of 50% off has been applied to Lined Paper!")
+        within("#cart-item-#{@paper.id}") do
+         click_on "-"
+        end
+      expect(page).to_not have_content("Fall Discount of 50% off has been applied to Lined Paper!")
+    end
+ end
 end
