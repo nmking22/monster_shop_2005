@@ -69,3 +69,6 @@ order_3 = user.orders.create!(
 item_order = ItemOrder.create!(item: car, order: order_1, quantity: 1, price: (car.price * 1))
 item_order = ItemOrder.create!(item: scuba_steve, order: order_2, quantity: 500, price: (scuba_steve.price * 500))
 item_order = ItemOrder.create!(item: barbie_1, order: order_3, quantity: 200, price: (barbie_1.price * 200))
+
+discount = pokemon_shop.discounts.create!(name: 'Fall Discount', min_quantity: 2, discount_percent: 50)
+discount_1 = pokemon_shop.discounts.create!(name: 'Thanksgiving Discount', min_quantity: 3, discount_percent: 100)

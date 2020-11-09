@@ -27,26 +27,24 @@ class Cart
   end
 
 
-
-
-    # def subtotal(item)
-    #   binding.pry
-    #   discounts = Discount.find_by(merchant_id: item.merchant_id)
-    #   if item.
-    #   if discount
-    #     discounts.order(discount_percent: :desc)
-    #   item.price * @contents[item.id.to_s]
-    # end
+  def discount(item)
+    discounts = Discount.where(merchant_id: item.merchant_id)
+    @eligible_discounts = discounts.where('min_quantity <= ?', @contents[item.id.to_s])
+    @eligible_discounts
+  end
 
   def discount_subtotal(item)
-    discounts = Discount.where(merchant_id: item.merchant_id)
-    best_discount_amount = discounts.where('min_quantity <= ?', @contents[item.id.to_s]).order('discount_percent DESC').first.discount_percent
-    price = (item.price * @contents[item.id.to_s]) * (best_discount_amount / 100.00)
+    best_discount = @eligible_discounts.order('discount_percent DESC').first
+    price = (item.price * @contents[item.id.to_s]) - ((item.price * @contents[item.id.to_s]) * (best_discount.discount_percent / 100.00))
     price
   end
 
   def subtotal(item)
-    item.price * @contents[item.id.to_s]
+    if discount(item) !=  []
+      discount_subtotal(item)
+    else
+      item.price * @contents[item.id.to_s]
+    end
   end
 
   def total
