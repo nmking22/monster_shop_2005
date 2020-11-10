@@ -1,19 +1,7 @@
-# <div align="center">  Monster Shop 2008
+# <div align="center">  Monster Shop Final
 
 
 ![Name of image](https://image.shutterstock.com/image-vector/cartoon-furry-monster-halloween-vector-260nw-1197171505.jpg)
-
-
-
- ## Project Partners
-
-
-[Brett Sherman](https://github.com/BJSherman80)<br>
-[Eduardo Parra](https://github.com/helloeduardo) <br>
-[Brian Liu](https://github.com/badgerbreezy) <br>
-[Nick King](https://github.com/nmking22) <br>
-
-
 
 
 ## Description
@@ -31,7 +19,7 @@
 
 
 ## Instructions
-Our application is hosted on [Heroku](https://infinite-depths-29009.herokuapp.com/), where you'll be able to view its functionality to the fullest. 
+This application is hosted on [Heroku](https://infinite-depths-29009.herokuapp.com/), where you'll be able to view its functionality to the fullest. 
 
 For usage on your local machine follow the instructions listed below:
 ```

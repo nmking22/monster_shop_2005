@@ -5,9 +5,9 @@ class Cart
     @contents = contents
   end
 
-  def add_item(item)
-    @contents[item] = 0 if !@contents[item]
-    @contents[item] += 1
+  def add_item(item_id)
+    @contents[item_id] = 0 if !@contents[item_id]
+    @contents[item_id] += 1
   end
 
   def total_items
@@ -22,14 +22,23 @@ class Cart
     item_quantity
   end
 
-  def subtotal(item)
-    item.price * @contents[item.id.to_s]
+  def subtotal(item_id)
+    subtotal = Item.find(item_id).price * @contents[item_id.to_s]
+    discounts = Item.find(item_id).merchant.bulk_discounts
+    discount = discounts.apply_discount(@contents[item_id.to_s])
+    if discount != nil
+      discount.calculate_discount(subtotal)
+    else
+      subtotal
+    end
   end
 
   def total
-    @contents.sum do |item_id,quantity|
-      Item.find(item_id).price * quantity
+    total = 0.0
+    @contents.each do |item_id,quantity|
+      total += subtotal(item_id)
     end
+    total
   end
 
   def decrement_item(item)
