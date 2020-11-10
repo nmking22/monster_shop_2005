@@ -6,7 +6,7 @@
   <section id='discount-<%= discount.id %>'>
     <h3>Discount: <%= discount.description %></h3>
     <ul>
-      <li>Percentage: <%= discount.discount_percent %></li>
+      <li>Percentage: <%= discount.discount_percent %>%</li>
       <li>Minimum Quantity: <%= discount.minimum_quantity %></li>
     </ul>
     <%= link_to 'Edit Bulk Discount', "/merchant/bulk_discounts/#{discount.id}/edit" %>
