@@ -10,7 +10,7 @@
 
 [Brett Sherman](https://github.com/BJSherman80)<br>
 [Eduardo Parra](https://github.com/helloeduardo) <br>
-[Brian Liu](https://github.com/badgerbreezy) <br>
+[Brian Liu](https://github.com/the-color-bliu) <br>
 [Nick King](https://github.com/nmking22) <br>
 
 
